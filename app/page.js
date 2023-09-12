@@ -1,95 +1,47 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"
+
+import UseMousePos from './Components/UseMousePos';
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Home() {
+  const { x, y } = UseMousePos();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const size = isHovered ? 400 : 70;
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <>
+      <section className="main">
+        <motion.div
+          className="mask"
+          animate={{
+            WebkitMaskPosition: `${x - size/2}px ${y - size/1.5}px`,  //x-15 y-70
+            WebkitMaskSize: `${size}px`
+          }}
+          transition={{ type: "tween", ease: "backOut" }}
+        >
+          <p
+            onMouseEnter={() => {
+              setIsHovered(true);
+            }}
+            onMouseLeave={() => {
+              setIsHovered(false);
+            }}
+            className="text-paragraph"
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            A frontend student, with skills that may soon be replaced by A.I. 
+            Creating websites that look better in my head than in reality.
           </p>
-        </a>
-      </div>
-    </main>
+        </motion.div>
+        <div className="other-section">
+          <p className="text-paragraph">
+            I'm a <span className="span-paragraph">junior frontend dev</span>{" "}
+            who's trying to create high quality &
+            impactful websites and digital experiences.
+          </p>
+        </div>
+      </section>
+    </>
   )
 }
